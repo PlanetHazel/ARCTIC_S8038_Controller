@@ -7,9 +7,14 @@ Fun fact: This only works like half of it
 	V0.5
 
 [X]	Fanspeed can be controlled
+
 [X]	Page switching
+
 [X]	About Page
+
 [X]	LCD Antiflicker  
-[ ]	RPM Measurment
+
+[ ]	RPM 
+
 [ ] Advanced settings  
 
