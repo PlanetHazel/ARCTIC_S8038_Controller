@@ -4,7 +4,7 @@ Controller for a max of 4 ARCTIC S8038 Fans for use with any Arduino Board / ATm
 # To Do
 Fun fact: This only works like half of it
 ----------------------------------------------------------------------------
-	V0.1
+	V0.5
 
 [X]	Fanspeed can be controlled
 [X]	Page switching
