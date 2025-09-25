@@ -73,7 +73,7 @@ void setup() {
   Serial.begin(115200);
   lcd.backlight();
   lcd.clear();
-  lcd.print("Big Ass Fan");
+  lcd.print("Arctic Fans weee");
   delay(2000);
   lcd.clear();
 
@@ -156,7 +156,7 @@ void screen1(){                 //RPM screen
 
 void screen2(){                //About screen
   lcd.setCursor(0, 0);
-  lcd.print("By: Tim Finger");
+  lcd.print("By: T.F");
   lcd.setCursor(0, 1);
   lcd.print("Version: 0.5");
 }
