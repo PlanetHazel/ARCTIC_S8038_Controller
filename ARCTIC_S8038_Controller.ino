@@ -3,9 +3,9 @@
 ________________________________________________________
 
 Script for controlling 4X ARCTIC S8038 - 10K Fans
-Made by Questonblock
+Made by Questonblock (PlanetHazel)
 Revision: 0
-Version 0.5
+Version 0.6
 ________________________________________________________
 */
 
@@ -16,28 +16,29 @@ LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars
 
 const int pushbuttoninput = 8;
 const int setFanspeed = A0;
+/*
 const int sensorFanspeed1 = A1;
 const int sensorFanspeed2 = A2;
 const int sensorFanspeed3 = A3;
-const int sensorFanspeed4; //add A4 maybe idk
+const int sensorFanspeed4; //add A4 maybe
+*/
 
 int pulseCount1;
 int pulseCount2;
 int pulseCount3;
 int pulseCount4;
 
-unsigned long last;
-int fanRPM1;
-int fanRPM2;
-int fanRPM3;
-int fanRPM4;
-
 const int FanPWM = 9;
 unsigned int fanspeed;
 unsigned int fanspeedPercentage;
 unsigned int fanspeedPercentageOld;
 unsigned int pushbuttonOld = 1;
-//unsigned char cursorposition = 0;
+
+int fanRPM1;
+int fanRPM2;
+int fanRPM3;
+int fanRPM4;
+
 int setScreen = 1;
 int pushbutton;
 
@@ -47,33 +48,17 @@ void setup() {
   pinMode(pushbuttoninput, INPUT_PULLUP);
   pinMode(setFanspeed, INPUT);
 
-  /*
-  pinMode(sensorFanspeed1, INPUT);
-  pinMode(sensorFanspeed2, INPUT);
-  pinMode(sensorFanspeed3, INPUT);
-  pinMode(sensorFanspeed4, INPUT);
-  */
-
   //Outputs
   pinMode(FanPWM, OUTPUT);
 
   Timer1.initialize(40); // 40 µs period = 25 kHz (1 / 0.00004)
   Timer1.pwm(FanPWM, 0);      // Start PWM at 0% duty
 
-  pinMode(sensorFanspeed1, INPUT_PULLUP); 
-  attachInterrupt(digitalPinToInterrupt(sensorFanspeed1), [](){ pulseCount1++; }, FALLING);
-  pinMode(sensorFanspeed2, INPUT_PULLUP); 
-  attachInterrupt(digitalPinToInterrupt(sensorFanspeed2), [](){ pulseCount2++; }, FALLING);
-  pinMode(sensorFanspeed3, INPUT_PULLUP); 
-  attachInterrupt(digitalPinToInterrupt(sensorFanspeed3), [](){ pulseCount3++; }, FALLING);
-  pinMode(sensorFanspeed4, INPUT_PULLUP); 
-  attachInterrupt(digitalPinToInterrupt(sensorFanspeed4), [](){ pulseCount4++; }, FALLING);
-
   lcd.init();
   Serial.begin(115200);
   lcd.backlight();
   lcd.clear();
-  lcd.print("Arctic Fans weee");
+  lcd.print("S8038 Controller");
   delay(2000);
   lcd.clear();
 
@@ -109,16 +94,6 @@ void loop() {
     Timer1.setPwmDuty(FanPWM, 0);
   }
 
-  //RPM meassurnment
-  if (millis() - last >= 1000) { // every 1 second
-    fanRPM1 = pulseCount1 * 30;
-    fanRPM2 = pulseCount2 * 30;
-    fanRPM3 = pulseCount3 * 30;
-    fanRPM4 = pulseCount4 * 30;
-
-    pulseCount1 = pulseCount2 = pulseCount3 = pulseCount4 = 0; // reset counters
-    last = millis();
-  }
   delay(100);
 }
 
